@@ -1,0 +1,326 @@
+:root {
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-color: #212529;
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --border-color: #dee2e6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.app-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.app-header p {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.results-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+}
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.product-card .image-container {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background-color: #f1f1f1;
+}
+
+.product-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+.product-card .info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-card .title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.product-card .price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .rating {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.product-card .bsr {
+    font-size: 0.85rem;
+    color: #b45309;
+    margin-top: 0.25rem;
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Rank Finder form --- */
+
+.rank-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.rank-form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.rank-form-row input {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    flex: 1;
+    min-width: 200px;
+}
+
+.rank-form-hint {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.rank-form button {
+    align-self: flex-start;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.rank-form button:hover {
+    background-color: var(--primary-hover);
+}
+
+.rank-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --- Rank result banner --- */
+
+.rank-result-container {
+    margin-bottom: 2rem;
+}
+
+.rank-result-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.rank-result-card.found {
+    border-left: 5px solid #16a34a;
+}
+
+.rank-result-card.not-found {
+    border-left: 5px solid #dc2626;
+}
+
+.rank-result-card.not-found.incomplete {
+    /* Amber rather than red: this is "we don't know" (scan was cut
+       short by a block), not "confirmed not ranked" — a different color
+       reinforces that it's a different situation, not just a rehash of
+       plain not-found. */
+    border-left-color: #d97706;
+}
+
+.rank-result-card.not-found.incomplete .rank-badge {
+    color: #d97706;
+}
+
+.rank-badge {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 100px;
+    text-align: center;
+}
+
+.rank-details p {
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+}
+
+.rank-details .meta {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.match-method-badge {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.sponsored-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #fef3c7;
+    color: #92400e;
+    margin-bottom: 0.4rem;
+}
+
+/* --- Results info banner (Amazon's own result-count summary) --- */
+
+.results-info-container {
+    margin-bottom: 1.25rem;
+}
+
+.results-info {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* --- Inline field validation --- */
+
+.field-error {
+    font-size: 0.85rem;
+    color: #dc2626;
+    font-weight: 500;
+    margin-top: -0.4rem;
+}
+
+.field-error.hidden {
+    display: none;
+}
+
+.input-error {
+    border-color: #dc2626 !important;
+}
+
+/* --- Error / empty states --- */
+
+.error-message {
+    text-align: center;
+    color: #dc2626;
+    padding: 1.5rem;
+    font-weight: 500;
+}
+
+.empty-message {
+    text-align: center;
+    color: #6c757d;
+    padding: 1.5rem;
+}

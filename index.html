@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazon Rank Finder</title>
+    <meta name="description" content="Find a specific product's search-result ranking on Amazon by pasting its product URL." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+    <main class="container">
+        <header class="app-header">
+            <h1>Amazon Rank Finder</h1>
+            <p>Paste a product URL and keyword to find its search ranking on Amazon.</p>
+        </header>
+
+        <form id="rank-form" class="rank-form">
+            <div class="rank-form-row">
+                <input type="text" id="rank-keyword-input" placeholder="Search keyword, e.g. backpack" required />
+            </div>
+            <div class="rank-form-row">
+                <input type="url" id="rank-url-input" placeholder="Product URL, e.g. https://www.amazon.in/dp/B08N5WRWNW" required />
+            </div>
+            <p id="rank-identifier-error" class="field-error hidden"></p>
+            <p class="rank-form-hint">Region and product ID are detected from the URL automatically. Scans up to 5 pages of results, sponsored placements included.</p>
+            <button type="submit" id="rank-submit-button">Find rank</button>
+        </form>
+
+        <div id="rank-loader" class="loader-container hidden">
+            <div class="loader"></div>
+        </div>
+
+        <section id="rank-result-container" class="rank-result-container"></section>
+        <div id="rank-results-info-container" class="results-info-container"></div>
+        <section id="rank-results-container" class="results-container"></section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
