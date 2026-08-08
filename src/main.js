@@ -210,8 +210,13 @@ async function parseJsonResponse(response) {
 }
 
 function describeApiError(status, data) {
+    // Backend error envelope shape (see app/main.py _error_envelope):
+    //   { "success": false, "error": { "code": "...", "message": "...", "requestId": "..." } }
+    // data.error is an OBJECT, not a string — must dig into .message.
+    // Passing the object itself to `new Error(...)` stringifies it via the
+    // default Object.prototype.toString(), which is always "[object Object]".
+    if (data?.error?.message) return data.error.message;
     if (data?.details) return data.details;
-    if (data?.error) return data.error;
     if (status === 502 || status === 504) {
         return 'The server had trouble reaching Amazon. This can happen if Amazon is rate-limiting requests — please try again in a moment.';
     }
